@@ -1,17 +1,16 @@
 import os
 import streamlit as st
-import psycopg2
-from psycopg2.extras import RealDictCursor
 from dotenv import load_dotenv
 
-# -----------------------------
-# Load environment variables
-# -----------------------------
-load_dotenv()
+load_dotenv()  # Load .env for local development
 
-# Load Streamlit Cloud secrets if available
-if st.secrets:
-    os.environ.update(st.secrets)
+# Update env only if secrets exist (avoids FileNotFoundError)
+if hasattr(st, "secrets") and st.secrets is not None:
+    try:
+        os.environ.update(st.secrets)
+    except FileNotFoundError:
+        pass  # ignore if secrets.toml is missing locally
+
 
 # -----------------------------
 # Streamlit config
