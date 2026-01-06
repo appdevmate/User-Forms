@@ -9,6 +9,10 @@ from dotenv import load_dotenv
 # -----------------------------
 load_dotenv()
 
+# Load Streamlit Cloud secrets if available
+if st.secrets:
+    os.environ.update(st.secrets)
+
 # -----------------------------
 # Streamlit config
 # -----------------------------
